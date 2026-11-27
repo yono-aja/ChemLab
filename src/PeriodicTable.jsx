@@ -39,8 +39,22 @@ function getPosition(n) {
   return { row: 7, col: n - 100 };
 }
 
+const CONFIG_EXCEPTIONS = {
+  24: '1s² 2s² 2p⁶ 3s² 3p⁶ 4s¹ 3d⁵',
+  29: '1s² 2s² 2p⁶ 3s² 3p⁶ 4s¹ 3d¹⁰',
+  41: '1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁶ 5s¹ 4d⁴',
+  42: '1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁶ 5s¹ 4d⁵',
+  44: '1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁶ 5s¹ 4d⁷',
+  45: '1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁶ 5s¹ 4d⁸',
+  46: '1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁶ 4d¹⁰',
+  47: '1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁶ 5s¹ 4d¹⁰',
+  78: '1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁶ 5s² 4d¹⁰ 5p⁶ 6s¹ 4f¹⁴ 5d⁹',
+  79: '1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁶ 5s² 4d¹⁰ 5p⁶ 6s¹ 4f¹⁴ 5d¹⁰',
+};
+
 // Konfigurasi dasar menurut aturan Aufbau (tanpa menangani pengecualian seperti Cr dan Cu).
 function buildConfig(z) {
+  if (CONFIG_EXCEPTIONS[z]) return CONFIG_EXCEPTIONS[z];
   let left = z;
   const parts = [];
   for (const [name, cap] of SUBSHELLS) {
